@@ -19,7 +19,8 @@ export default function Weather(props) {
       pressure: response.data.temperature.pressure,
       humidity: response.data.temperature.humidity,
       description: response.data.condition.description,
-      icon: "https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png",
+      icon: response.data.condition.icon_url,
+      icondescription: response.data.condition.icon,
     });
   }
 
@@ -71,7 +72,7 @@ export default function Weather(props) {
           <div className="row row-temp">
             <div className="col-6">
               <div className="d-flex">
-                <img src={weather.icon} alt="weather-icon" />
+                <img src={weather.icon} alt={weather.icondescription} />
 
                 <span className="temp">{Math.round(weather.temp)}</span>
                 <span className="units">°C</span>
