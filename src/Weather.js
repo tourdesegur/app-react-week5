@@ -6,6 +6,7 @@ import "./Weather.css";
 
 export default function Weather(props) {
   const [weather, setWeather] = useState({ ready: false });
+  const [city, setCity] = useState(props.cityDefault);
 
   function showTemp(response) {
     console.log(response);
@@ -22,10 +23,24 @@ export default function Weather(props) {
     });
   }
 
+  function search() {
+    const apiKey = "oa394f37d882at8a5980fd67ed5ff90b";
+    let url = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+    axios.get(url).then(showTemp);
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    search();
+  }
+  function changeCity(event) {
+    setCity(event.target.value);
+  }
+
   if (weather.ready) {
     return (
       <div className="Weather">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-9">
               <input
@@ -33,6 +48,7 @@ export default function Weather(props) {
                 placeholder="Enter a city..."
                 className="form-control"
                 autoFocus="on"
+                onChange={changeCity}
               />
             </div>
             <div className="col-3">
@@ -73,10 +89,7 @@ export default function Weather(props) {
       </div>
     );
   } else {
-    const apiKey = "oa394f37d882at8a5980fd67ed5ff90b";
-    let url = `https://api.shecodes.io/weather/v1/current?query=${props.cityDefault}&key=${apiKey}&units=metric`;
-    axios.get(url).then(showTemp);
-
+    search();
     return (
       <div className="loader">
         <LoadingIcons.Bars fill="#70757a" width="60px" />
