@@ -7,6 +7,12 @@
   margin: 30px auto;
 }
 
+.loader {
+  display: flex;
+  justify-content: center;
+  margin: 30px auto;
+}
+
 .Weather h1 {
   color: #202124;
   font-size: 22px;

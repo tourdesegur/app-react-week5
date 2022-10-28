@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import FormattedDate from "./FormattedDate";
 import LoadingIcons from "react-loading-icons";
 import "./Weather.css";
 
@@ -11,7 +12,7 @@ export default function Weather(props) {
     setWeather({
       ready: true,
       city: response.data.city,
-      date: "Friday, 7:00",
+      date: new Date(response.data.time * 1000),
       temp: response.data.temperature.current,
       wind: response.data.wind.speed,
       pressure: response.data.temperature.pressure,
@@ -45,7 +46,9 @@ export default function Weather(props) {
         </form>
         <h1>{weather.city}</h1>
         <ul>
-          <li>{weather.date}</li>
+          <li>
+            <FormattedDate date={weather.date} />
+          </li>
           <li className="text-capitalize">{weather.description}</li>
         </ul>
         <div className="container">
@@ -74,6 +77,10 @@ export default function Weather(props) {
     let url = `https://api.shecodes.io/weather/v1/current?query=${props.cityDefault}&key=${apiKey}&units=metric`;
     axios.get(url).then(showTemp);
 
-    return <LoadingIcons.Bars stroke="#98ff98" />;
+    return (
+      <div className="loader">
+        <LoadingIcons.Bars fill="#70757a" width="60px" />
+      </div>
+    );
   }
 }
