@@ -3,6 +3,7 @@ import axios from "axios";
 import FormattedDate from "./FormattedDate";
 import LoadingIcons from "react-loading-icons";
 import "./Weather.css";
+import Temperature from "./Temperature";
 
 export default function Weather(props) {
   const [weather, setWeather] = useState({ ready: false });
@@ -73,9 +74,7 @@ export default function Weather(props) {
             <div className="col-6">
               <div className="d-flex">
                 <img src={weather.icon} alt={weather.icondescription} />
-
-                <span className="temp">{Math.round(weather.temp)}</span>
-                <span className="units">°C</span>
+                <Temperature celsius={Math.round(weather.temp)} />
               </div>
             </div>
             <div className="col-6">

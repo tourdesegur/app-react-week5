@@ -39,16 +39,6 @@
   margin-left: -20px;
 }
 
-.Weather .temp {
-  font-size: 64px;
-}
-
-.Weather .units {
-  position: relative;
-  top: 20px;
-  font-size: 16px;
-}
-
 .Weather .ul-weather {
   margin-top: 20px;
 }
