@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import FormattedDate from "./FormattedDate";
+import WeatherForecast from "./WeatherForecast";
 import LoadingIcons from "react-loading-icons";
 import "./Weather.css";
 import Temperature from "./Temperature";
@@ -73,7 +74,11 @@ export default function Weather(props) {
           <div className="row row-temp">
             <div className="col-6">
               <div className="d-flex">
-                <img src={weather.icon} alt={weather.icondescription} />
+                <img
+                  src={weather.icon}
+                  className="iconMax"
+                  alt={weather.icondescription}
+                />
                 <Temperature celsius={Math.round(weather.temp)} />
               </div>
             </div>
@@ -86,6 +91,7 @@ export default function Weather(props) {
             </div>
           </div>
         </div>
+        <WeatherForecast city={weather.city} />
       </div>
     );
   } else {
