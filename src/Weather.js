@@ -40,12 +40,26 @@ export default function Weather(props) {
     setCity(event.target.value);
   }
 
+function showCurrentLocation(position) {
+  console.log(position);
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+  let key = "oa394f37d882at8a5980fd67ed5ff90b";
+  let url = `https://api.shecodes.io/weather/v1/current?lon=${lon}&lat=${lat}&key=${key}&units=metric`;
+
+  axios.get(url).then(showTemp);
+}
+
+  function getCurrentLocation() {
+    navigator.geolocation.getCurrentPosition(showCurrentLocation);
+  }
+
   if (weather.ready) {
     return (
       <div className="Weather">
         <form onSubmit={handleSubmit}>
           <div className="row">
-            <div className="col-9">
+            <div className="col-6">
               <input
                 type="search"
                 placeholder="Enter a city..."
@@ -60,6 +74,9 @@ export default function Weather(props) {
                 value="Search"
                 className="btn btn-primary w-100"
               />
+            </div>
+            <div className="col-3">
+              <button className="btn btn-outline-primary w-100" onClick={getCurrentLocation}>Current city</button>
             </div>
           </div>
         </form>
